@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIGI'S — Sempre un Amico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ─────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2c2c2c;
+      background: #faf8f4;
+      line-height: 1.6;
+    }
+
+    /* ── Color Tokens ─────────────────────────── */
+    :root {
+      --green-deep: #2d5a27;
+      --green-mid: #4a8b3f;
+      --green-light: #7bc462;
+      --cream: #faf8f4;
+      --gold: #c9a96e;
+      --text-dark: #1a1a1a;
+      --text-light: #f5f0e8;
+    }
+
+    /* ── Navigation ───────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(45, 90, 39, 0.95);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    nav .logo img {
+      height: 36px;
+      width: auto;
+      transition: opacity 0.3s;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul li a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover { color: var(--gold); }
+
+    /* Mobile nav toggle */
+    .nav-toggle { display: none; cursor: pointer; }
+    .nav-toggle span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--cream);
+      margin: 6px 0;
+      transition: 0.3s;
+    }
+
+    /* ── Hero Section ─────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/hero.jpg') center/cover no-repeat;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .hero.loaded .hero-bg { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.2) 0%,
+        rgba(45, 90, 39, 0.4) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--text-light);
+      max-width: 700px;
+      padding: 0 2rem;
+      margin-top: 30vh;
+    }
+    .hero-content h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      letter-spacing: 6px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+    }
+    .hero-content .tagline {
+      font-family: 'Inter', sans-serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      color: var(--gold);
+      margin-bottom: 2rem;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    }
+    .hero-content .cta {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--green-deep);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all 0.4s;
+    }
+    .hero-content .cta:hover {
+      background: var(--gold);
+      color: white;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator svg { width: 30px; height: 30px; stroke: var(--cream); opacity: 0.6; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ── Section Commons ──────────────────────── */
+    section { padding: 6rem 2rem; }
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--green-deep);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1rem auto 2rem;
+    }
+
+    /* ── About Section ────────────────────────── */
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: #555;
+      margin-bottom: 1.2rem;
+    }
+    .about p:last-child { margin-bottom: 0; }
+
+    /* ── Menu Highlights ──────────────────────── */
+    .menu-section { background: #f3efe7; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .menu-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .menu-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      color: var(--green-deep);
+      margin-bottom: 0.8rem;
+    }
+    .menu-card p {
+      color: #777;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── Hours & Location ─────────────────────── */
+    .info-section {
+      background: var(--green-deep);
+      color: var(--cream);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .info-grid .section-title { color: var(--cream); }
+    .info-grid h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .info-grid p {
+      font-size: 1rem;
+      line-height: 2;
+      opacity: 0.9;
+    }
+
+    /* ── Reservation CTA ──────────────────────── */
+    .reservation {
+      text-align: center;
+      background: #f3efe7;
+    }
+    .reservation .cta-big {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 1rem 3rem;
+      background: var(--green-deep);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .reservation .cta-big:hover { background: var(--green-mid); }
+
+    /* ── Footer ────────────────────────────────── */
+    footer {
+      background: #1a1a1a;
+      color: #999;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── Mobile ────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(45, 90, 39, 0.97);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.4s;
+      }
+      nav ul.open { right: 0; }
+      nav ul li a { font-size: 1.1rem; }
+      .nav-toggle { display: block; z-index: 101; }
+      section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="logo"><img src="images/logo-light.png" alt="GIGI'S"></a>
+    <ul id="nav-menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#info">Visit</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+    <div class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <a href="#reserve" class="cta">Reserve a Table</a>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about">
+      <h2 class="section-title">Our Story</h2>
+      <div class="divider"></div>
+      <p>
+        For us, pizza has never been about trends or a fancy hype. It's about people, connection,
+        and the simple joy of sharing a meal in a place that feels real. That's why we started
+        Gigi's, to bring our neighborhood's feeling here in Berlin. A spot with soul, comfort,
+        and personality, inspired by the authentic traditions of Naples.
+      </p>
+      <p>
+        Gigi's is meant to be your go-to place. Whether you're celebrating something great, need
+        a little comfort after a long day, coming solo, with a partner, or your loud group of
+        friends. Our ovens are hot, and there's always a seat (and a warm welcome) waiting for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Menu Highlights -->
+  <section id="menu" class="menu-section">
+    <h2 class="section-title">From Our Kitchen</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">A taste of what awaits you</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="icon">&#127837;</div>
+        <h3>Antipasti</h3>
+        <p>Burrata with heirloom tomatoes, crispy calamari, and bruschetta made with bread baked fresh each morning.</p>
+      </div>
+      <div class="menu-card">
+        <div class="icon">&#127836;</div>
+        <h3>Pasta & Risotto</h3>
+        <p>Hand-rolled pappardelle with slow-braised rag&ugrave;, truffle risotto, and classic cacio e pepe.</p>
+      </div>
+      <div class="menu-card">
+        <div class="icon">&#127856;</div>
+        <h3>Dolci</h3>
+        <p>Tiramis&ugrave; made to Nonna's recipe, panna cotta with seasonal fruit, and warm Nutella calzone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hours & Location -->
+  <section id="info" class="info-section">
+    <div class="info-grid">
+      <div>
+        <h3>Hours</h3>
+        <p>
+          Wednesday &mdash; Thursday<br>5:00 PM &ndash; 10:00 PM<br><br>
+          Friday &amp; Saturday<br>5:00 PM &ndash; 11:00 PM<br><br>
+          Sunday<br>5:00 PM &ndash; 10:00 PM
+        </p>
+      </div>
+      <div>
+        <h3>Find Us</h3>
+        <p>
+          Warthestr. 9<br>
+          12051 Berlin<br><br>
+          <strong>Phone:</strong> +44 20 1234 5678<br>
+          <strong>Email:</strong> info@gigisberlin.com
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section id="reserve" class="reservation">
+    <h2 class="section-title">Join Us</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">Reserve your table and become part of the family</p>
+    <a href="mailto:info@gigisberlin.com" class="cta-big">Reserve a Table</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 <span>GIGI'S</span> &mdash; Sempre un Amico. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(link =>
+      link.addEventListener('click', () => menu.classList.remove('open'))
+    );
+
+    // Hero slow zoom on load
+    window.addEventListener('load', () =>
+      document.querySelector('.hero').classList.add('loaded')
+    );
+  </script>
+</body>
+</html>
