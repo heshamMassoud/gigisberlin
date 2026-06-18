@@ -96,7 +96,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('images/hero.jpg') center/cover no-repeat;
+      background: url('images/hero-cheers.jpg') center/cover no-repeat;
       transform: scale(1.05);
       transition: transform 8s ease-out;
     }
@@ -239,6 +239,53 @@
       font-size: 0.95rem;
       line-height: 1.7;
     }
+    .menu-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .menu-btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--green-deep);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .menu-btn:hover {
+      background: var(--gold);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ── Gallery ──────────────────────────────── */
+    .gallery-section { text-align: center; }
+    .gallery-grid {
+      column-count: 3;
+      column-gap: 0.75rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin: 0 0 0.75rem;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e8e2d6;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
 
     /* ── Hours & Location ─────────────────────── */
     .info-section {
@@ -317,6 +364,7 @@
       nav ul li a { font-size: 1.1rem; }
       .nav-toggle { display: block; z-index: 101; }
       section { padding: 4rem 1.5rem; }
+      .gallery-grid { column-count: 2; }
     }
   </style>
 </head>
@@ -328,6 +376,7 @@
     <ul id="nav-menu">
       <li><a href="#about">About</a></li>
       <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#info">Visit</a></li>
       <li><a href="#reserve">Reserve</a></li>
     </ul>
@@ -376,20 +425,43 @@
     <p class="section-subtitle">A taste of what awaits you</p>
     <div class="menu-grid">
       <div class="menu-card">
-        <div class="icon">&#127837;</div>
+        <div class="icon">&#129778;</div>
         <h3>Antipasti</h3>
-        <p>Burrata with heirloom tomatoes, crispy calamari, and bruschetta made with bread baked fresh each morning.</p>
+        <p>Marinated olives with warm, hand-pulled house bread, golden frittelle, creamy burrata, and boards of San Daniele prosciutto, mortadella &amp; Salame Napoli.</p>
       </div>
       <div class="menu-card">
-        <div class="icon">&#127836;</div>
-        <h3>Pasta & Risotto</h3>
-        <p>Hand-rolled pappardelle with slow-braised rag&ugrave;, truffle risotto, and classic cacio e pepe.</p>
+        <div class="icon">&#127829;</div>
+        <h3>Pizza Napoletana</h3>
+        <p>San Marzano tomatoes, fior di latte and wild basil over a slow-risen base &mdash; Marinara, Margherita, Capricciosa, La Norma and Provola e Pepe. Every pizza available vegan.</p>
       </div>
       <div class="menu-card">
-        <div class="icon">&#127856;</div>
-        <h3>Dolci</h3>
-        <p>Tiramis&ugrave; made to Nonna's recipe, panna cotta with seasonal fruit, and warm Nutella calzone.</p>
+        <div class="icon">&#127864;</div>
+        <h3>Cocktails &amp; Aperitivo</h3>
+        <p>Gigi's Negroni, Espresso Martini and Basil Smash, alongside Aperol Spritz, Bellini and a short list of Southern Italian wines by the glass.</p>
       </div>
+    </div>
+    <div class="menu-links">
+      <a href="menus/menu-food.pdf" target="_blank" rel="noopener" class="menu-btn">Food Menu</a>
+      <a href="menus/menu-food-de.pdf" target="_blank" rel="noopener" class="menu-btn">Speisekarte (DE)</a>
+      <a href="menus/menu-drinks.pdf" target="_blank" rel="noopener" class="menu-btn">Drinks Menu</a>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="gallery-section">
+    <h2 class="section-title">A Night at Gigi's</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">Pizza, spritz &amp; good company &mdash; Naples, by way of Berlin</p>
+    <div class="gallery-grid">
+      <figure class="gallery-item"><img src="images/gallery-01.jpg" alt="Pizza with an espresso martini and fresh burrata" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-02.jpg" alt="Overhead spread of pizza, frittelle and prosciutto shared among friends" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-05.jpg" alt="Three signature cocktails on the table" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-04.jpg" alt="A coupe cocktail and pizzetta served on a Berlin cobblestone street" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-03.jpg" alt="A slice of Margherita balanced on a red Bianchi bike" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-07.jpg" alt="Olives and an Aperol spritz in the afternoon sun" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-06.jpg" alt="A red cocktail resting on an antique piano" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-09.jpg" alt="Friends toasting cocktails over a fresh pizza" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="images/gallery-08.jpg" alt="The @gigisberlin chalkboard above a bicycle out front" loading="lazy"></figure>
     </div>
   </section>
 
@@ -409,7 +481,7 @@
         <p>
           Warthestr. 9<br>
           12051 Berlin<br><br>
-          <strong>Phone:</strong> +44 20 1234 5678<br>
+          <strong>Phone:</strong> 030 92218212<br>
           <strong>Email:</strong> info@gigisberlin.com
         </p>
       </div>

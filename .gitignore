@@ -1,0 +1,5 @@
+# Source asset drop folder — cleaned, web-safe copies live in images/ and menus/
+assets/
+
+# OS cruft
+.DS_Store
