@@ -332,6 +332,18 @@
       transition: background 0.3s;
     }
     .reservation .cta-big:hover { background: var(--green-mid); }
+    .reservation-widget {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+    }
+    .reservation-widget iframe {
+      width: 100%;
+      height: 760px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--cream);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
 
     /* ── Footer ────────────────────────────────── */
     footer {
@@ -493,7 +505,12 @@
     <h2 class="section-title">Join Us</h2>
     <div class="divider"></div>
     <p class="section-subtitle">Reserve your table and become part of the family</p>
-    <a href="mailto:info@gigisberlin.com" class="cta-big">Reserve a Table</a>
+    <div class="reservation-widget">
+      <iframe
+        src="https://app.tableo.com/widget/gigis-pizzeria-germany?bgColor=%23f3efe7&textColor=%236d6a5f&googleFont=Ubuntu&fontSize=16.6&cornerStyle=rounded_pill&textAlignment=center&formControlBgColor=%23255d22&formControlColor=%23faf8f4&formControlBorderColor=%23d0c7b4&formControlBorderShadow=2&formControlBorderWidth=1&formControlBorderOpacity=1&buttonBgColor=%23255d22&buttonTextColor=%23faf8f4"
+        title="Reserve a table at Gigi's"
+        loading="lazy"></iframe>
+    </div>
   </section>
 
   <!-- Footer -->
